@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/fragment_blank.xml" value="0.5541666666666667" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/fragment_gif_details.xml" value="0.11481481481481481" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/fragment_gifs.xml" value="0.4995471014492754" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/fragment_gifs_list.xml" value="0.5541666666666667" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/layout_card.xml" value="0.35054347826086957" />
+        <entry key="..\:/Java/Test tasks/Gif_Viewer/app/src/main/res/layout/layout_gif_card.xml" value="0.29743589743589743" />
         <entry key="..\:/Java/Test tasks/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
       </map>
     </option>
