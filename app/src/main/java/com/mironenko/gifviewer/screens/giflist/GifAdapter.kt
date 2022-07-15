@@ -1,4 +1,4 @@
-package com.mironenko.gifviewer.screens.gifslist
+package com.mironenko.gifviewer.screens.giflist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mironenko.gifviewer.R
 import com.mironenko.gifviewer.databinding.LayoutGifCardBinding
-import com.mironenko.gifviewer.repository.GifEntity
+import com.mironenko.gifviewer.model.GifEntity
 
-class GifsAdapter : RecyclerView.Adapter<GifsAdapter.GifViewHolder>() {
+class GifAdapter : RecyclerView.Adapter<GifAdapter.GifViewHolder>() {
 
     private val gifList: List<GifEntity> = emptyList()
 
@@ -27,11 +27,11 @@ class GifsAdapter : RecyclerView.Adapter<GifsAdapter.GifViewHolder>() {
 
     class GifViewHolder(private val binding: LayoutGifCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(gifEntity: GifEntity) {
-            Glide.with(binding.ivGif.context)
-                .load(gifEntity.url)
-                .placeholder(R.drawable.ic_gif)
-                .error(R.drawable.ic_error)
-                .into(binding.ivGif)
+//            Glide.with(binding.ivGif.context)
+//                .load(gifEntity.url)
+//                .placeholder(R.drawable.ic_gif)
+//                .error(R.drawable.ic_error)
+//                .into(binding.ivGif)
         }
     }
 }
