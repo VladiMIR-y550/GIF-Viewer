@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mironenko.gifviewer.*
-import com.mironenko.gifviewer.databinding.FragmentGifListBinding
+import com.mironenko.gifviewer.databinding.FragmentGifGridBinding
 import com.mironenko.gifviewer.model.Gif
 
 class GifGridFragment : Fragment() {
-    private var _binding: FragmentGifListBinding? = null
+    private var _binding: FragmentGifGridBinding? = null
     private val mBinding get() = _binding!!
     private val viewModel: GifGridViewModel by viewModels { factory() }
     private lateinit var gifObserver: Observer<Result<List<Gif>>>
@@ -33,7 +33,7 @@ class GifGridFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGifListBinding.inflate(inflater, container, false)
+        _binding = FragmentGifGridBinding.inflate(inflater, container, false)
 
         gifObserver = Observer {
             hideAll()

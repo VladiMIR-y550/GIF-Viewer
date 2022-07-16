@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/gifGridFragment2">
+    <fragment
+        android:id="@+id/gifGridFragment2"
+        android:name="com.mironenko.gifviewer.screens.giflist.GifGridFragment"
+        android:label="fragment_gif_grid"
+        tools:layout="@layout/fragment_gif_grid" >
+        <action
+            android:id="@+id/action_gifGridFragment2_to_gifDetailsFragment2"
+            app:destination="@id/gifDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/gifDetailsFragment2"
+        android:name="com.mironenko.gifviewer.screens.gifdetails.GifDetailsFragment"
+        android:label="fragment_gif_details"
+        tools:layout="@layout/fragment_gif_details" >
+        <action
+            android:id="@+id/action_gifDetailsFragment2_to_gifGridFragment2"
+            app:destination="@id/gifGridFragment2" />
+    </fragment>
+</navigation>
