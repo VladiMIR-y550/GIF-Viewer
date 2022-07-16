@@ -1,8 +1,5 @@
 package com.mironenko.gifviewer.screens.gifdetails
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 
-class GifDetailsViewModel(application: Application) : AndroidViewModel(application) {
-
-}
+class GifDetailsViewModel : ViewModel()

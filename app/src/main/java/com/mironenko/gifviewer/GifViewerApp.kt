@@ -1,6 +1,7 @@
 package com.mironenko.gifviewer
 
 import android.app.Application
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.mironenko.gifviewer.di.AppComponent
@@ -8,9 +9,8 @@ import com.mironenko.gifviewer.di.DaggerAppComponent
 import com.mironenko.gifviewer.di.RepositoryModule
 
 class GifViewerApp : Application() {
-    companion object {
-        lateinit var appComponent: AppComponent
-    }
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -29,3 +29,9 @@ class GifViewerApp : Application() {
         return value.toString()
     }
 }
+
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is GifViewerApp -> appComponent
+        else -> this.applicationContext.appComponent
+    }

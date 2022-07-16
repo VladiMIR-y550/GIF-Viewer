@@ -13,11 +13,11 @@ class RepositoryModule(private val API_KEY: String) {
 
     @Provides
     @Singleton
-    fun provideGifListRepository(iGifListRemoteDataSource: IGifListRemoteDataSource): GifListRepository =
-        GifListRepository(remoteDataSource = iGifListRemoteDataSource)
+    fun provideGifListDataSource(giphyApi: GiphyApi): IGifListRemoteDataSource =
+        GifListRemoteDataSource(giphyApi, API_KEY)
 
     @Provides
     @Singleton
-    fun provideGifListDataSource(giphyApi: GiphyApi): IGifListRemoteDataSource =
-        GifListRemoteDataSource(giphyApi = giphyApi, api_key = API_KEY)
+    fun provideGifListRepository(remote: IGifListRemoteDataSource): GifListRepository =
+        GifListRepository(remote)
 }

@@ -1,7 +1,7 @@
 package com.mironenko.gifviewer.model.remote
 
 import com.mironenko.gifviewer.AMOUNT_DOWNLOAD_PAGES
-import com.mironenko.gifviewer.model.GifEntity
+import com.mironenko.gifviewer.model.GifListEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,5 +13,5 @@ interface GiphyApi {
         @Query("api_key") API_KEY: String = "",
         @Query("limit") amountPages: Int = AMOUNT_DOWNLOAD_PAGES,
         @Query("offset") page: Int = 0
-    ): Response<GifEntity>
+    ): Response<GifListEntity>
 }

@@ -3,16 +3,16 @@ package com.mironenko.gifviewer.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class GifEntity(
+data class GifListEntity(
     @Expose
-    @SerializedName("data") val `data`: List<Data>,
+    @SerializedName("data") val `data`: List<GifEntity>,
     @Expose
     @SerializedName("meta") val meta: Meta,
     @Expose
     @SerializedName("pagination") val pagination: Pagination
 )
 
-data class Data(
+data class GifEntity(
     @Expose
     @SerializedName("analytics") val analytics: Analytics,
     @Expose
@@ -46,7 +46,7 @@ data class Data(
     @Expose
     @SerializedName("title") val title: String,
     @Expose
-    @SerializedName("trending_datetimel") val trending_datetime: String,
+    @SerializedName("trending_datetime") val trending_datetime: String,
     @Expose
     @SerializedName("type") val type: String,
     @Expose

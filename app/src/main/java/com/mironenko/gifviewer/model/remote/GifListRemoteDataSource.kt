@@ -1,6 +1,6 @@
 package com.mironenko.gifviewer.model.remote
 
-import com.mironenko.gifviewer.model.GifEntity
+import com.mironenko.gifviewer.model.GifListEntity
 import com.mironenko.gifviewer.model.IGifListRemoteDataSource
 import retrofit2.Response
 import javax.inject.Inject
@@ -11,6 +11,6 @@ class GifListRemoteDataSource @Inject constructor(
 ) :
     IGifListRemoteDataSource {
 
-    override suspend fun downloadGifList(page: Int): Response<GifEntity> =
+    override suspend fun downloadGifList(page: Int): Response<GifListEntity> =
         giphyApi.downloadNews(API_KEY = api_key, page = page)
 }
