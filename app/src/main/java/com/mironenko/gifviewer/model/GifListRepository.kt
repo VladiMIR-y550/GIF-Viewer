@@ -4,7 +4,9 @@ import android.util.Log
 import com.mironenko.gifviewer.toGif
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 typealias GifListener = (gif: List<Gif>) -> Unit
@@ -12,11 +14,9 @@ typealias GifListener = (gif: List<Gif>) -> Unit
 class GifListRepository @Inject constructor(
     private val remoteDataSource: IGifListRemoteDataSource
 ) {
-    private var gifBase = mutableListOf<Gif>()
+    var gifBase = mutableListOf<Gif>()
+        private set
     private val listeners = mutableListOf<GifListener>()
-
-    private val _gifFlow = MutableSharedFlow<List<Gif>>()
-    val gifFlow: Flow<List<Gif>> = _gifFlow
 
     suspend fun downloadGif(page: Int) {
         val response = remoteDataSource.downloadGifList(page)
@@ -30,7 +30,8 @@ class GifListRepository @Inject constructor(
         }
     }
 
-    fun listenCurrentGifBase(): Flow<List<Gif>> = callbackFlow {
+    suspend fun listenCurrentGifBase(): Flow<List<Gif>> = callbackFlow {
+
         val listener: GifListener = {
             trySend(it)
         }
@@ -45,6 +46,8 @@ class GifListRepository @Inject constructor(
         if (indexToAdd == -1) {
             gifBase.add(gif)
             notifyChanges()
+        } else {
+            gifBase[indexToAdd] = gif
         }
     }
 

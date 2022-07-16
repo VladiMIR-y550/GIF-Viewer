@@ -23,7 +23,11 @@ class GifGridFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        gifAdapter = GifAdapter()
+        if(savedInstanceState == null) {
+            viewModel.downloadGif(START_PAGE)
+        }
+
+        gifAdapter = GifAdapter(viewModel)
         gifAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
@@ -48,12 +52,15 @@ class GifGridFragment : Fragment() {
             }
         }
 
-        viewModel.downloadGif()
-
         mBinding.recyclerView.setHasFixedSize(true)
         mBinding.recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
         mBinding.recyclerView.adapter = gifAdapter
+
+        mBinding.swipeRefresh.setOnRefreshListener {
+            viewModel.updateGifBase()
+            mBinding.swipeRefresh.isRefreshing = false
+        }
         return mBinding.root
     }
 
@@ -74,9 +81,5 @@ class GifGridFragment : Fragment() {
 
     private fun hideAll() {
         mBinding.swipeRefresh.isRefreshing = false
-    }
-
-    companion object {
-        fun newInstance() = GifGridFragment()
     }
 }

@@ -26,7 +26,7 @@ class GifViewModelFactory(private val application: Application) : ViewModelProvi
                 GifGridViewModel(repository)
             }
             GifDetailsViewModel::class.java -> {
-                GifDetailsViewModel()
+                GifDetailsViewModel(repository)
             }
             else -> {
                 throw IllegalStateException("Unknown view model class")

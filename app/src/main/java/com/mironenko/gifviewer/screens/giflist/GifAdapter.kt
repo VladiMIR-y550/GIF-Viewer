@@ -3,22 +3,30 @@ package com.mironenko.gifviewer.screens.giflist
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mironenko.gifviewer.PRELOAD_ARTICLES
 import com.mironenko.gifviewer.R
 import com.mironenko.gifviewer.databinding.LayoutGifCardBinding
 import com.mironenko.gifviewer.model.Gif
 
-class GifAdapter : RecyclerView.Adapter<GifAdapter.GifViewHolder>() {
+interface AdapterActionListener {
+    fun loadMoreGif(page: Int)
+}
+
+class GifAdapter(
+    private val actionListener: AdapterActionListener
+) : RecyclerView.Adapter<GifAdapter.GifViewHolder>() {
 
     var gifList: List<Gif> = emptyList()
-    set(newValue) {
-        val diffCallback = GifGridDiffCallback(field, newValue)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        field = newValue
-        diffResult.dispatchUpdatesTo(this)
-    }
+        set(newValue) {
+            val diffCallback = GifGridDiffCallback(field, newValue)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
+            field = newValue
+            diffResult.dispatchUpdatesTo(this)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,16 +37,30 @@ class GifAdapter : RecyclerView.Adapter<GifAdapter.GifViewHolder>() {
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
         val gifEntity = gifList[position]
         holder.bind(gifEntity)
+
+        if (position == gifList.size - PRELOAD_ARTICLES) {
+            actionListener.loadMoreGif(gifList.size)
+        }
+
+        holder.itemView.setOnClickListener {
+            val action =
+                GifGridFragmentDirections.actionGifGridFragmentToGifDetailsFragment(
+                    currentGifId = gifEntity.id
+                )
+
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = gifList.size
 
-    class GifViewHolder(private val binding: LayoutGifCardBinding): RecyclerView.ViewHolder(binding.root) {
+    class GifViewHolder(private val binding: LayoutGifCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(gif: Gif) {
             Log.d("TAG", "URL = ${gif.url}")
             Glide.with(binding.ivGif.context)
                 .load(gif.downSized)
-                .placeholder(R.drawable.ic_gif)
+                .placeholder(R.drawable.progress_animated)
                 .error(R.drawable.ic_error)
                 .into(binding.ivGif)
         }
