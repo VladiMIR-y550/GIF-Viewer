@@ -41,7 +41,6 @@ class GifListRepository @Inject constructor(
             response.body()!!.data.forEach {
                 val gifEntity = this@GifListRepository.toGif(it)
                 addGif(gifEntity)
-                Log.d("TAG", "base size ${gifBase.size}")
             }
             notifyChanges()
         }
