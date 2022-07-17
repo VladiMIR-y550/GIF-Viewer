@@ -12,13 +12,14 @@ import com.mironenko.gifviewer.screens.gifdetails.GifDetailsViewModel
 import com.mironenko.gifviewer.screens.giflist.GifGridViewModel
 import javax.inject.Inject
 
-class GifViewModelFactory(app: Application) : ViewModelProvider.Factory {
+class GifViewModelFactory(application: Application) :
+    ViewModelProvider.Factory {
 
     @Inject
     lateinit var repository: GifListRepository
 
     init {
-        app.appComponent.inject(this)
+        application.appComponent.inject(this)
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

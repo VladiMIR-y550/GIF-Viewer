@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mironenko.gifviewer.model.Gif
 import com.mironenko.gifviewer.model.GifListRepository
 import com.mironenko.gifviewer.utils.*
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,10 @@ class GifGridViewModel(
 
     private val _gifList = MutableLiveData<Result<List<Gif>>>()
     val gifList: LiveData<Result<List<Gif>>> = _gifList
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        onError(throwable)
+    }
 
     private var gifResult: Result<List<Gif>> = EmptyResult()
         set(value) {
@@ -42,7 +47,7 @@ class GifGridViewModel(
     }
 
     fun downloadGif(page: Int, searchQuery: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             repository.downloadGif(page, searchQuery)
         }
     }
@@ -60,6 +65,10 @@ class GifGridViewModel(
     override fun loadMoreGif(page: Int) {
         gifResult = PendingResult()
         downloadGif(page, searchQuery)
+    }
+
+    private fun onError(errorBody: Throwable) {
+        gifResult = ErrorResult(errorBody)
     }
 
     private fun notifyUpdates() {

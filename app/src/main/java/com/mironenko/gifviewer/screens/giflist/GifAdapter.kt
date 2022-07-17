@@ -61,9 +61,6 @@ class GifAdapter(
                 .placeholder(R.drawable.progress_animated)
                 .error(R.drawable.ic_error)
                 .into(binding.ivGif)
-
-            binding.ivGif.contentDescription = gif.title
-
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.mironenko.gifviewer.di
 
-import com.mironenko.gifviewer.GifViewModelFactory
-import com.mironenko.gifviewer.screens.giflist.GifGridViewModel
+import com.mironenko.gifviewer.utils.GifViewModelFactory
 import dagger.Component
 import javax.inject.Singleton
 
@@ -9,5 +8,4 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(viewModelFactory: GifViewModelFactory)
-    fun inject(gitViewModel: GifGridViewModel)
 }

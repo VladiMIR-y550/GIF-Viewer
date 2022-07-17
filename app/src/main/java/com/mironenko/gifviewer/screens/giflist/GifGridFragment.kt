@@ -2,16 +2,24 @@ package com.mironenko.gifviewer.screens.giflist
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.mironenko.gifviewer.*
+import com.mironenko.gifviewer.R
 import com.mironenko.gifviewer.databinding.FragmentGifGridBinding
 import com.mironenko.gifviewer.model.Gif
+import com.mironenko.gifviewer.utils.internet.networkStatus
 import com.mironenko.gifviewer.utils.*
+import com.mironenko.gifviewer.utils.internet.NetworkStatus
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.shareIn
 
 class GifGridFragment : Fragment(),
     SearchView.OnQueryTextListener, MenuProvider {
@@ -23,7 +31,7 @@ class GifGridFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        checkNetworkStatus()
         if (savedInstanceState == null) {
             viewModel.downloadGif(START_PAGE, EMPTY_SEARCH_QUERY)
         }
@@ -49,8 +57,13 @@ class GifGridFragment : Fragment(),
                 is PendingResult -> {
                     mBinding.swipeRefresh.isRefreshing = true
                 }
-                is EmptyResult -> mBinding.swipeRefresh.isRefreshing = true
-                else -> {}
+                is EmptyResult -> {
+                    mBinding.swipeRefresh.isRefreshing = true
+                }
+                is ErrorResult -> {
+                    Toast.makeText(requireContext(), it.error.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
 
@@ -110,5 +123,16 @@ class GifGridFragment : Fragment(),
 
     private fun hideAll() {
         mBinding.swipeRefresh.isRefreshing = false
+    }
+
+    private fun checkNetworkStatus() {
+        lifecycleScope.launchWhenStarted {
+            requireContext().networkStatus.shareIn(lifecycleScope, SharingStarted.Eagerly, 1)
+                .onEach {
+                    if (it == NetworkStatus.Available) {
+                        viewModel.downloadGif(START_PAGE, viewModel.searchQuery)
+                    }
+                }.collect()
+        }
     }
 }

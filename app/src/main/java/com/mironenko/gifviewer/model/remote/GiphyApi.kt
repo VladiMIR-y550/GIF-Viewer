@@ -21,7 +21,7 @@ interface GiphyApi {
         @Query("q") search: String = "",
         @Query("limit") amountPages: Int = AMOUNT_DOWNLOAD_PAGES,
         @Query("offset") page: Int = 0,
-        @Query("rating") rating: String ="q",
+        @Query("rating") rating: String = "q",
         @Query("lang") lang: String = "en"
     ): Response<GifListEntity>
 }

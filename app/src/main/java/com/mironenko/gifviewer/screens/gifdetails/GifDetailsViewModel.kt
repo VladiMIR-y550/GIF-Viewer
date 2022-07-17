@@ -9,8 +9,7 @@ import com.mironenko.gifviewer.model.GifListRepository
 class GifDetailsViewModel(
     private val repository: GifListRepository
 ) : ViewModel() {
-    private var gifId: String? = null
-
+    private var gifId: String = ""
     private var _gifDetails = MutableLiveData<Gif>()
     val gifDetails: LiveData<Gif> = _gifDetails
 

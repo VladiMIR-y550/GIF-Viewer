@@ -11,8 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mironenko.gifviewer.R
 import com.mironenko.gifviewer.databinding.FragmentGifDetailsBinding
-import com.mironenko.gifviewer.factory
 import com.mironenko.gifviewer.model.Gif
+import com.mironenko.gifviewer.utils.factory
 
 class GifDetailsFragment : Fragment() {
     private val args by navArgs<GifDetailsFragmentArgs>()
@@ -41,8 +41,6 @@ class GifDetailsFragment : Fragment() {
                 .load(it.downSized_large)
                 .placeholder(R.drawable.progress_animated)
                 .into(mBinding.ivGifDetails)
-
-            mBinding.ivGifDetails.contentDescription = it.title
         }
 
         return mBinding.root

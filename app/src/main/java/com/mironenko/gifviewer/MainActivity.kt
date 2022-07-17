@@ -1,6 +1,7 @@
 package com.mironenko.gifviewer
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -15,7 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        val inflater = LayoutInflater.from(this)
+        _binding = ActivityMainBinding.inflate(inflater)
         setContentView(mBinding.root)
 
         setSupportActionBar(mBinding.toolBar)
@@ -24,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfig = AppBarConfiguration(navController.graph)
         mBinding.toolBar.setupWithNavController(navController, appBarConfig)
-
     }
 
     override fun onDestroy() {
