@@ -1,13 +1,12 @@
 package com.mironenko.gifviewer.screens.giflist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.mironenko.gifviewer.PRELOAD_ARTICLES
+import com.mironenko.gifviewer.utils.PRELOAD_ARTICLES
 import com.mironenko.gifviewer.R
 import com.mironenko.gifviewer.databinding.LayoutGifCardBinding
 import com.mironenko.gifviewer.model.Gif
@@ -57,12 +56,14 @@ class GifAdapter(
     class GifViewHolder(private val binding: LayoutGifCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(gif: Gif) {
-            Log.d("TAG", "URL = ${gif.url}")
             Glide.with(binding.ivGif.context)
-                .load(gif.downSized)
+                .load(gif.downSized_small)
                 .placeholder(R.drawable.progress_animated)
                 .error(R.drawable.ic_error)
                 .into(binding.ivGif)
+
+            binding.ivGif.contentDescription = gif.title
+
         }
     }
 }

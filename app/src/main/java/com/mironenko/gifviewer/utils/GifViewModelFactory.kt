@@ -1,22 +1,24 @@
-package com.mironenko.gifviewer
+package com.mironenko.gifviewer.utils
 
 import android.app.Application
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mironenko.gifviewer.GifViewerApp
+import com.mironenko.gifviewer.appComponent
 import com.mironenko.gifviewer.model.GifListRepository
 import com.mironenko.gifviewer.screens.gifdetails.GifDetailsViewModel
 import com.mironenko.gifviewer.screens.giflist.GifGridViewModel
 import javax.inject.Inject
 
-class GifViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+class GifViewModelFactory(app: Application) : ViewModelProvider.Factory {
 
     @Inject
     lateinit var repository: GifListRepository
 
     init {
-        application.appComponent.inject(this)
+        app.appComponent.inject(this)
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

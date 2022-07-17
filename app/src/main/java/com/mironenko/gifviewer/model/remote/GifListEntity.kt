@@ -1,4 +1,4 @@
-package com.mironenko.gifviewer.model
+package com.mironenko.gifviewer.model.remote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

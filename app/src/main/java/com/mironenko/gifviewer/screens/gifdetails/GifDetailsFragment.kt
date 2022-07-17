@@ -1,6 +1,5 @@
 package com.mironenko.gifviewer.screens.gifdetails
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mironenko.gifviewer.R
@@ -40,9 +38,11 @@ class GifDetailsFragment : Fragment() {
 
         gifObserver = Observer {
             Glide.with(requireContext())
-                .load(it.downSized)
+                .load(it.downSized_large)
                 .placeholder(R.drawable.progress_animated)
                 .into(mBinding.ivGifDetails)
+
+            mBinding.ivGifDetails.contentDescription = it.title
         }
 
         return mBinding.root
